@@ -84,9 +84,12 @@ exports.updateMe = asyncHandler(async (req, res) => {
  * dev mode so the flow is testable end-to-end without an SMTP provider.
  */
 exports.forgotPassword = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ email: req.body.email.toLowerCase() });
-  const genericMessage = 'If that account exists, a reset link has been generated.';
-  if (!user) return ok(res, { message: genericMessage, data: { resetToken: null } });
+  const emailInput = (req.body.email || '').toLowerCase().trim();
+  const user = await User.findOne({ email: emailInput });
+
+  if (!user) {
+    throw ApiError.notFound(`No account found with email "${emailInput}". Please check the spelling or register first.`);
+  }
 
   const resetToken = crypto.randomBytes(32).toString('hex');
   user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
@@ -97,36 +100,44 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
   const resetUrl = `${clientUrl}/reset-password?token=${resetToken}`;
 
   let emailSent = false;
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  let emailError = null;
+  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER;
+  const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_PASS;
+
+  if (smtpUser && smtpPass) {
     try {
       const nodemailer = require('nodemailer');
       const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: Number(process.env.SMTP_PORT) === 465,
-        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+        service: 'gmail',
+        auth: { user: smtpUser, pass: smtpPass },
       });
       await transporter.sendMail({
-        from: `"Trio Store" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+        from: `"Trio Store" <${smtpUser}>`,
         to: user.email,
         subject: 'Password Reset Request - Trio Store',
-        html: `<div style="font-family: sans-serif; padding: 20px; color: #333;">
-          <h2>Reset Your Password</h2>
-          <p>Hello ${user.firstName || 'Customer'},</p>
-          <p>You requested a password reset for your Trio Store account.</p>
-          <p><a href="${resetUrl}" style="background-color: #d4af37; color: #000; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; display: inline-block;">Reset Password Now</a></p>
-          <p style="font-size: 12px; color: #888; margin-top: 20px;">This link will expire in 15 minutes. If you did not request this, please ignore this email.</p>
+        html: `<div style="font-family: Arial, sans-serif; padding: 24px; color: #111; max-width: 500px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px;">
+          <h2 style="color: #000; margin-bottom: 16px;">Password Reset Request</h2>
+          <p style="font-size: 14px; line-height: 1.6; color: #444;">Hello ${user.firstName || 'Customer'},</p>
+          <p style="font-size: 14px; line-height: 1.6; color: #444;">We received a request to reset your password for your Trio Store account.</p>
+          <div style="margin: 24px 0; text-align: center;">
+            <a href="${resetUrl}" style="background-color: #d4af37; color: #000000; padding: 14px 28px; text-decoration: none; font-weight: bold; border-radius: 8px; display: inline-block; font-size: 14px;">Reset Password Now</a>
+          </div>
+          <p style="font-size: 12px; color: #777;">Or copy and paste this URL into your browser:</p>
+          <p style="font-size: 12px; color: #0066cc; word-break: break-all;">${resetUrl}</p>
+          <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+          <p style="font-size: 11px; color: #999;">This link expires in 15 minutes. If you did not request a password reset, you can safely ignore this email.</p>
         </div>`,
       });
       emailSent = true;
     } catch (err) {
-      console.error('[email] SMTP error:', err.message);
+      emailError = err.message;
+      console.error('[email] Gmail SMTP error:', err.message);
     }
   }
 
   ok(res, {
-    message: genericMessage,
-    data: { resetToken, resetUrl, emailSent },
+    message: emailSent ? `Password reset email sent to ${user.email}` : 'Reset link generated successfully',
+    data: { resetToken, resetUrl, emailSent, emailError },
   });
 });
 
