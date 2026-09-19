@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **MongoDB Atlas Cluster Connection**: Configured project to connect to cluster0 Atlas database via `server/.env` and dynamic fallback in `server/config/db.js`.
 - **Vercel API Rewrite Destination Sync**: Fixed live Vercel frontend proxy routing by updating `client/vercel.json` rewrite target from outdated `97t1` to active server `electronic-store-x34q.vercel.app`.
 - **Order Total Price Alignment**: Fixed price discrepancy between checkout summary (e.g. Rs 398) and order placement total (e.g. Rs 423) by ensuring backend `orderService.js` strictly uses `discountPrice` when available.
 - **Single Item "Buy Now" Isolation**: Updated `buyNowItem` across Wishlist and Product Details so that clicking "Buy Now" clears old cart items and proceeds to checkout with ONLY the selected product.
