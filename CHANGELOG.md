@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Single Item "Buy Now" Isolation**: Updated `buyNowItem` across Wishlist and Product Details so that clicking "Buy Now" clears old cart items and proceeds to checkout with ONLY the selected product.
 - **Checkout Summary Item Count Fix**: Fixed Checkout summary rail displaying incorrect item count by computing total units dynamically from active cart items.
 - **Free Shipping Subtitle Update**: Changed Free Shipping text in Footer and Product Details page to `"On all available products"`.
 - **Postal Code Validation Fix**: Resolved "Postal code is required" error during order placement by adding automatic fallback to `'N/A'` on checkout frontend payload and updating backend validator with `checkFalsy: true`.
