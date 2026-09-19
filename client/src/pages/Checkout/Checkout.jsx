@@ -225,7 +225,7 @@ export default function Checkout() {
             <dt className="text-ink-400 mb-1">Shipping to</dt>
             <dd className="font-medium leading-relaxed text-white">
               {placedOrder.shippingAddress.address}, {placedOrder.shippingAddress.city},{' '}
-              {placedOrder.shippingAddress.state} {placedOrder.shippingAddress.postalCode},{' '}
+              {placedOrder.shippingAddress.state} {placedOrder.shippingAddress.postalCode && placedOrder.shippingAddress.postalCode !== 'N/A' ? placedOrder.shippingAddress.postalCode : ''},{' '}
               {placedOrder.shippingAddress.country}
             </dd>
           </div>
