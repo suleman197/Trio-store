@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **MongoDB Atlas Connection Verified**: Successfully connected to Atlas cluster (`ac-4eyohph-shard-00-00.bkcuuwk.mongodb.net`) and seeded initial database data (6 categories, 18 products, 2 coupons, admin user).
 - **Security & Secret Protection**: Removed raw MongoDB password from tracked code (`db.js` and `.env.example`). Credentials now load strictly from environment variables (`process.env.MONGODB_URI`).
 - **MongoDB Atlas Production Credentials**: Configured exact MongoDB Atlas username (`sulemanmunir6752_db_user`) and password in `server/.env` and `server/config/db.js`.
 - **MongoDB Atlas Cluster Connection**: Configured project to connect to cluster0 Atlas database via `server/.env` and dynamic fallback in `server/config/db.js`.
