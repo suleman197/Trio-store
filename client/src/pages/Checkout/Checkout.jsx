@@ -60,7 +60,7 @@ export default function Checkout() {
       if (!info.phone.trim()) return 'Phone is required';
     }
     if (step === 1) {
-      for (const k of Object.keys(address)) if (!address[k].trim()) return 'Please complete every address field';
+      for (const k of Object.keys(address)) if (k !== 'postalCode' && !address[k].trim()) return 'Please complete every required address field';
     }
     return null;
   };
@@ -292,7 +292,6 @@ export default function Checkout() {
                   </div>
                   <Input id="co-city" name="city" label="City" required value={address.city} onChange={setField(setAddress)} />
                   <Input id="co-state" name="state" label="State / Province" required value={address.state} onChange={setField(setAddress)} />
-                  <Input id="co-zip" name="postalCode" label="Postal Code" required value={address.postalCode} onChange={setField(setAddress)} />
                   <Input id="co-country" name="country" label="Country" required value={address.country} onChange={setField(setAddress)} />
                 </div>
               </>

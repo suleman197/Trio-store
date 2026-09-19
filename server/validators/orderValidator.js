@@ -11,7 +11,7 @@ const createOrderRules = [
   body('shippingAddress.address').trim().notEmpty().withMessage('Street address is required'),
   body('shippingAddress.city').trim().notEmpty().withMessage('City is required'),
   body('shippingAddress.state').trim().notEmpty().withMessage('State/Province is required'),
-  body('shippingAddress.postalCode').trim().notEmpty().withMessage('Postal code is required'),
+  body('shippingAddress.postalCode').optional().trim(),
   body('shippingAddress.country').trim().notEmpty().withMessage('Country is required'),
   body('paymentMethod').optional().isIn(['cod', 'bank']).withMessage('Unsupported payment method'),
 ];
