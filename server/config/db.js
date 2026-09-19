@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const MONGODB_URI =
   process.env.MONGODB_URI ||
-  'mongodb+srv://<db_username>:24LS8vYYMlnl2gN8@cluster0.bkcuuwk.mongodb.net/electronicstore?retryWrites=true&w=majority&appName=Cluster0';
+  'mongodb+srv://sulemanmunir6752_db_user:24LS8vYYMlnl2gN8@cluster0.bkcuuwk.mongodb.net/electronicstore?retryWrites=true&w=majority&appName=Cluster0';
 
 const connectDB = async () => {
   try {
