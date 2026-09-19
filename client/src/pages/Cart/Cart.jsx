@@ -16,10 +16,10 @@ export default function Cart() {
   const [checkingCoupon, setCheckingCoupon] = useState(false);
   const navigate = useNavigate();
 
-  const shipping = subtotal >= 500 || subtotal === 0 ? 0 : 25;
+  const shipping = 0;
   const discount = coupon?.discount ?? 0;
   const tax = Math.round((subtotal - discount) * 0.05 * 100) / 100;
-  const total = Math.round((subtotal - discount + shipping + tax) * 100) / 100;
+  const total = Math.round((subtotal - discount + tax) * 100) / 100;
 
   const applyCoupon = async () => {
     if (!code.trim()) return;
@@ -141,7 +141,6 @@ export default function Cart() {
           <dl className="space-y-2.5 text-sm border-t border-ink-800 pt-4">
             <Row label="Subtotal" value={formatCurrency(subtotal)} />
             {discount > 0 && <Row label="Discount" value={`-${formatCurrency(discount)}`} accent />}
-            <Row label="Shipping" value={shipping === 0 ? 'Free' : formatCurrency(shipping)} sub={shipping > 0 ? `Free over ${formatCurrency(500)}` : undefined} />
             <Row label="Tax (5%)" value={formatCurrency(tax)} />
             <div className="border-t border-ink-800 pt-3 flex justify-between">
               <dt className="font-bold text-white">Total</dt>

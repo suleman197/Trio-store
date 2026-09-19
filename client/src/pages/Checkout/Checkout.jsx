@@ -13,7 +13,7 @@ import ScreenshotUpload from '../../components/checkout/ScreenshotUpload';
 
 const STEPS = ['Customer Info', 'Shipping Address', 'Order Summary', 'Payment', 'Confirmation'];
 const FREE_SHIPPING_THRESHOLD = 500;
-const SHIPPING_FEE = 25;
+const SHIPPING_FEE = 0;
 const BANK_DISCOUNT_PERCENT = 20;
 
 export default function Checkout() {
@@ -47,10 +47,10 @@ export default function Checkout() {
   const afterCoupon = subtotal - couponDiscount;
   const bankDiscountAmount = Number(settings.bankDiscountPercent) || 200;
   const bankDiscount = paymentMethod === 'bank' ? Math.min(afterCoupon, bankDiscountAmount) : 0;
-  const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING_FEE;
+  const shippingFee = 0;
   const taxableAmount = afterCoupon - bankDiscount;
   const tax = Math.round(taxableAmount * 5) / 100;
-  const total = Math.round((taxableAmount + shippingFee + tax) * 100) / 100;
+  const total = Math.round((taxableAmount + tax) * 100) / 100;
 
   const setField = (setter) => (e) => setter((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -453,7 +453,6 @@ export default function Checkout() {
               <SumRow label={`Items (${cart.itemCount})`} value={formatCurrency(subtotal)} />
               {couponDiscount > 0 && <SumRow label={`Coupon (${appliedCoupon.code})`} value={`-${formatCurrency(couponDiscount)}`} accent />}
               {bankDiscount > 0 && <SumRow label="Bank Discount" value={`-${formatCurrency(bankDiscount)}`} accent />}
-              <SumRow label="Shipping" value={shippingFee === 0 ? 'Free' : formatCurrency(shippingFee)} />
               <SumRow label="Tax (5%)" value={formatCurrency(tax)} />
               <div className="border-t border-ink-800 pt-3 flex justify-between items-baseline">
                 <dt className="font-bold text-white">Total</dt>

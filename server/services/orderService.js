@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
 
 const TAX_RATE = 0.05; // 5% sales tax
 const FREE_SHIPPING_THRESHOLD = 500;
-const SHIPPING_FEE = 25;
+const SHIPPING_FEE = 0;
 
 /**
  * Creates an order:
@@ -73,10 +73,10 @@ const createOrder = async (user, payload) => {
   }
 
   // ---- Shipping & tax ----
-  const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shippingFee = 0;
   const taxableAmount = subtotal - discount - bankDiscount;
   const tax = Math.round(taxableAmount * TAX_RATE * 100) / 100;
-  const total = Math.round((taxableAmount + shippingFee + tax) * 100) / 100;
+  const total = Math.round((taxableAmount + tax) * 100) / 100;
 
   // ---- Atomic stock decrement with inventory logging ----
   for (const item of orderItems) {
