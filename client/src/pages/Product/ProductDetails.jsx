@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Heart, ShoppingBag, Zap, Check, Truck, ShieldCheck, RotateCcw,
@@ -27,6 +27,12 @@ export default function ProductDetails() {
   const navigate = useNavigate();
   const { data, loading, error } = useFetch(() => productApi.get(slug), [slug]);
   const product = data?.product;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+  }, [slug]);
 
   const [imgIdx, setImgIdx] = useState(0);
   const [qty, setQty] = useState(1);

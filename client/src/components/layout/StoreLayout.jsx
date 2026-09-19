@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 import Header from './Header';
 import Footer from './Footer';
 import CartDrawer from './CartDrawer';
@@ -30,6 +31,7 @@ export default function StoreLayout() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <Header />
       <main className="flex-1">
         <Outlet />
