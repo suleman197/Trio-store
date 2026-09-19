@@ -224,11 +224,9 @@ export default function ProductDetails() {
           </div>
 
           {/* Perks */}
-          <div className="mt-8 grid sm:grid-cols-3 gap-3 border-t border-ink-800 pt-6">
+          <div className="mt-8 flex items-center gap-6 border-t border-ink-800 pt-6">
             {[
               [Truck, 'Free Shipping', 'Orders over $500'],
-              [RotateCcw, '30-Day Returns', 'No questions asked'],
-              [ShieldCheck, product.warranty?.split('.')[0] || 'Warranty', 'Full coverage'],
             ].map(([Icon, t, s]) => (
               <div key={t} className="flex items-start gap-2.5">
                 <Icon size={18} strokeWidth={1.75} className="mt-0.5 shrink-0 text-gold-500" />
