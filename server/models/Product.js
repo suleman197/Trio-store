@@ -1,4 +1,4 @@
-﻿const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const variantSchema = new mongoose.Schema(
   {
@@ -51,7 +51,7 @@ productSchema.index({ price: 1 });
 productSchema.index({ createdAt: -1 });
 
 productSchema.virtual('effectivePrice').get(function () {
-  return this.discountPrice && this.discountPrice < this.price ? this.discountPrice : this.price;
+  return (this.discountPrice && Number(this.discountPrice) < Number(this.price)) ? Number(this.discountPrice) : Number(this.price);
 });
 
 productSchema.virtual('stockStatus').get(function () {

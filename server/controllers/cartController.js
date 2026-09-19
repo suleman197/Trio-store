@@ -18,9 +18,9 @@ const buildCartResponse = async (userId) => {
   for (const item of cart.items) {
     if (!item.product || item.product.status !== 'active') continue;
     const unitPrice =
-      item.product.discountPrice && item.product.discountPrice < item.product.price
-        ? item.product.discountPrice
-        : item.product.price;
+      item.product.discountPrice && Number(item.product.discountPrice) < Number(item.product.price)
+        ? Number(item.product.discountPrice)
+        : Number(item.product.price);
     subtotal += unitPrice * item.quantity;
     validItems.push({
       _id: item._id,

@@ -37,7 +37,9 @@ const createOrder = async (user, payload) => {
     if (product.stock < item.quantity)
       throw ApiError.badRequest(`Insufficient stock for "${product.name}" (${product.stock} left)`);
 
-    const price = product.effectivePrice ?? product.price;
+    const price = (product.discountPrice && Number(product.discountPrice) < Number(product.price))
+      ? Number(product.discountPrice)
+      : Number(product.price);
     subtotal += price * item.quantity;
 
     orderItems.push({
