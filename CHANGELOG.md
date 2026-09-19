@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Security & Secret Protection**: Removed raw MongoDB password from tracked code (`db.js` and `.env.example`). Credentials now load strictly from environment variables (`process.env.MONGODB_URI`).
 - **MongoDB Atlas Production Credentials**: Configured exact MongoDB Atlas username (`sulemanmunir6752_db_user`) and password in `server/.env` and `server/config/db.js`.
 - **MongoDB Atlas Cluster Connection**: Configured project to connect to cluster0 Atlas database via `server/.env` and dynamic fallback in `server/config/db.js`.
 - **Vercel API Rewrite Destination Sync**: Fixed live Vercel frontend proxy routing by updating `client/vercel.json` rewrite target from outdated `97t1` to active server `electronic-store-x34q.vercel.app`.
