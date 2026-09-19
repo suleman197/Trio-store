@@ -50,7 +50,7 @@ export default function Footer() {
       <div className="border-b border-ink-800">
         <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-2 gap-8 max-w-3xl">
           {[
-            [Truck, 'Free Shipping', 'On all orders over $500'],
+            [Truck, 'Free Shipping', 'On all available products'],
             [CreditCard, 'Secure Payments', '256-bit SSL encrypted'],
           ].map(([Icon, title, sub]) => (
             <div key={title} className="flex items-start gap-3">
