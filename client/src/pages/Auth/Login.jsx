@@ -67,7 +67,7 @@ export default function Login() {
       </form>
 
       <p className="mt-6 text-center text-sm text-ink-500">
-        New to VOLTIQ?{' '}
+        New to TRIO?{' '}
         <Link to="/register" className="font-semibold text-ink-500 hover:underline">
           Create an account
         </Link>

@@ -5,7 +5,7 @@ const siteSettingsSchema = new mongoose.Schema(
     _id: { type: String, default: 'site' },
 
     // Branding
-    brandName: { type: String, default: 'VOLTIQ' },
+    brandName: { type: String, default: 'TRIO' },
     logoUrl: { type: String, default: '' },
     tagline: { type: String, default: 'Technology that moves you' },
 
@@ -14,13 +14,13 @@ const siteSettingsSchema = new mongoose.Schema(
     announcementEnabled: { type: Boolean, default: true },
 
     // Contact
-    contactEmail: { type: String, default: 'support@voltiq.store' },
+    contactEmail: { type: String, default: 'support@trio.store' },
     contactPhone: { type: String, default: '+1 (555) 010-2020' },
     address: { type: String, default: '100 Circuit Avenue, San Francisco, CA' },
 
     // About / Footer
     aboutText: { type: String, default: 'Premium electronics, smart devices and accessories — curated for people who expect more from their gear.' },
-    footerCopyright: { type: String, default: 'VOLTIQ. All rights reserved.' },
+    footerCopyright: { type: String, default: 'TRIO. All rights reserved.' },
 
     // Social links
     socialLinks: {
@@ -31,8 +31,8 @@ const siteSettingsSchema = new mongoose.Schema(
     },
 
     // SEO
-    metaTitle: { type: String, default: 'VOLTIQ — Premium Electronics Store' },
-    metaDescription: { type: String, default: 'Shop the latest electronics, smartphones, laptops, and accessories at VOLTIQ.' },
+    metaTitle: { type: String, default: 'TRIO — Premium Electronics Store' },
+    metaDescription: { type: String, default: 'Shop the latest electronics, smartphones, laptops, and accessories at TRIO.' },
 
     // Bank payment details
     bankName: { type: String, default: 'HBL' },

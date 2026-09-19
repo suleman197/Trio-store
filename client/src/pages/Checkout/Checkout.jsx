@@ -461,7 +461,7 @@ export default function Checkout() {
               </div>
             </dl>
             <p className="mt-5 text-[11px] text-ink-500 leading-relaxed">
-              By placing this order you agree to the VOLTIQ Terms & Conditions and Privacy Policy.
+              By placing this order you agree to the TRIO Terms & Conditions and Privacy Policy.
             </p>
           </aside>
         </div>

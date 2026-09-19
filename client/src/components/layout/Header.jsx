@@ -114,7 +114,7 @@ export default function Header() {
             {settings.logoUrl ? (
               <img src={settings.logoUrl} alt={settings.brandName} className="w-8 h-8 rounded-lg object-cover" />
             ) : (
-              <span className="w-8 h-8 rounded-lg bg-gold-500 text-black flex items-center justify-center font-extrabold text-lg">{settings.brandName?.charAt(0) || 'V'}</span>
+              <span className="w-8 h-8 rounded-lg bg-gold-500 text-black flex items-center justify-center font-extrabold text-lg">{settings.brandName?.charAt(0) || 'T'}</span>
             )}
             <span className="text-xl font-extrabold tracking-tight hidden xs:inline text-white">{settings.brandName}</span>
           </Link>

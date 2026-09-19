@@ -111,9 +111,9 @@ function SidebarContent({ user, onLogout, onNavigate, settings = {} }) {
           {settings.logoUrl ? (
             <img src={settings.logoUrl} alt={settings.brandName} className="w-8 h-8 rounded-lg object-cover" />
           ) : (
-            <span className="w-8 h-8 rounded-lg bg-gold-500 text-black flex items-center justify-center font-extrabold">{settings.brandName?.charAt(0) || 'V'}</span>
+            <span className="w-8 h-8 rounded-lg bg-gold-500 text-black flex items-center justify-center font-extrabold">{settings.brandName?.charAt(0) || 'T'}</span>
           )}
-          <span className="text-lg font-extrabold tracking-tight">{settings.brandName || 'VOLTIQ'}</span>
+          <span className="text-lg font-extrabold tracking-tight">{settings.brandName || 'TRIO'}</span>
         </NavLink>
       </div>
 

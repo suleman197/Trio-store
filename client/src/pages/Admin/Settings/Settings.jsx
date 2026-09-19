@@ -153,7 +153,7 @@ function GeneralTab({ form, set, handleLogoUpload, uploading }) {
         </div>
       </div>
 
-      <Input label="Brand Name" value={form.brandName} onChange={(v) => set('brandName', v)} placeholder="VOLTIQ" />
+      <Input label="Brand Name" value={form.brandName} onChange={(v) => set('brandName', v)} placeholder="TRIO" />
       <Input label="Tagline" value={form.tagline} onChange={(v) => set('tagline', v)} placeholder="Technology that moves you" />
 
       <SectionTitle>Announcement Bar</SectionTitle>
@@ -169,7 +169,7 @@ function GeneralTab({ form, set, handleLogoUpload, uploading }) {
       <Textarea label="Announcement Text" value={form.announcementText} onChange={(v) => set('announcementText', v)} rows={2} />
 
       <SectionTitle>SEO</SectionTitle>
-      <Input label="Meta Title" value={form.metaTitle} onChange={(v) => set('metaTitle', v)} placeholder="VOLTIQ — Premium Electronics Store" />
+      <Input label="Meta Title" value={form.metaTitle} onChange={(v) => set('metaTitle', v)} placeholder="TRIO — Premium Electronics Store" />
       <Textarea label="Meta Description" value={form.metaDescription} onChange={(v) => set('metaDescription', v)} rows={2} />
     </div>
   );
@@ -180,7 +180,7 @@ function ContactTab({ form, set }) {
   return (
     <div className="space-y-6">
       <SectionTitle>Contact Information</SectionTitle>
-      <Input label="Email" value={form.contactEmail} onChange={(v) => set('contactEmail', v)} icon={Mail} placeholder="support@voltiq.store" />
+      <Input label="Email" value={form.contactEmail} onChange={(v) => set('contactEmail', v)} icon={Mail} placeholder="support@trio.store" />
       <Input label="Phone" value={form.contactPhone} onChange={(v) => set('contactPhone', v)} icon={Phone} placeholder="+1 (555) 010-2020" />
       <Input label="Address" value={form.address} onChange={(v) => set('address', v)} icon={MapPin} placeholder="100 Circuit Avenue, San Francisco, CA" />
     </div>
@@ -232,7 +232,7 @@ function FooterTab({ form, set }) {
     <div className="space-y-6">
       <SectionTitle>Footer Content</SectionTitle>
       <Textarea label="About Text" value={form.aboutText} onChange={(v) => set('aboutText', v)} rows={3} />
-      <Input label="Copyright Text" value={form.footerCopyright} onChange={(v) => set('footerCopyright', v)} placeholder="VOLTIQ. All rights reserved." />
+      <Input label="Copyright Text" value={form.footerCopyright} onChange={(v) => set('footerCopyright', v)} placeholder="TRIO. All rights reserved." />
     </div>
   );
 }

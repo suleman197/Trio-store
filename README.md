@@ -1,4 +1,4 @@
-# VOLTIQ — Premium Electronics Store
+# TRIO — Premium Electronics Store
 
 A production-ready, full-stack e-commerce application with a premium black-and-white design.
 

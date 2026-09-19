@@ -11,8 +11,8 @@ export function AuthShell({ title, subtitle, children }) {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 justify-center">
-            <span className="w-10 h-10 rounded-xl bg-gold-500 text-black flex items-center justify-center font-extrabold text-2xl">V</span>
-            <span className="text-3xl font-extrabold tracking-tight text-white">VOLTIQ</span>
+            <span className="w-10 h-10 rounded-xl bg-gold-500 text-black flex items-center justify-center font-extrabold text-2xl">T</span>
+            <span className="text-3xl font-extrabold tracking-tight text-white">TRIO</span>
           </Link>
           <h1 className="mt-6 text-2xl font-bold tracking-tight text-white">{title}</h1>
           <p className="text-sm text-ink-500 mt-1.5">{subtitle}</p>

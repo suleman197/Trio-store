@@ -40,7 +40,7 @@ export default function Register() {
         password: form.password,
         confirmPassword: form.confirmPassword,
       });
-      toast.success(`Welcome to VOLTIQ, ${data.data.user.firstName}!`);
+      toast.success(`Welcome to TRIO, ${data.data.user.firstName}!`);
       afterAuth(data.data.user);
     } catch (err) {
       toast.error(err.message);
