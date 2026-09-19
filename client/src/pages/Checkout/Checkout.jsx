@@ -453,7 +453,7 @@ export default function Checkout() {
           <aside className="bg-[#111] border border-ink-800 rounded-2xl p-6 lg:sticky lg:top-28">
             <h3 className="font-bold tracking-tight mb-4 text-white">Summary</h3>
             <dl className="space-y-2.5 text-sm">
-              <SumRow label={`Items (${cart.itemCount})`} value={formatCurrency(subtotal)} />
+              <SumRow label={`Items (${cart.items.reduce((s, i) => s + (i.quantity || 1), 0)})`} value={formatCurrency(subtotal)} />
               {couponDiscount > 0 && <SumRow label={`Coupon (${appliedCoupon.code})`} value={`-${formatCurrency(couponDiscount)}`} accent />}
               {bankDiscount > 0 && <SumRow label="Bank Discount" value={`-${formatCurrency(bankDiscount)}`} accent />}
               <SumRow label="Tax (5%)" value={formatCurrency(tax)} />
