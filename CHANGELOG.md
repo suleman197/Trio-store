@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Password Reset User Check**: Added explicit validation so entering an unregistered email displays a clear notification to the user, and enabled native Gmail transport for registered accounts.
 - **Gmail SMTP Email Delivery**: Verified Gmail App Password authentication (`sdybgakytxrobkdi`) and configured live SMTP email sending for Password Resets via `sulemanmunir6752@gmail.com`.
 - **Password Reset Flow**: Enhanced Forgot Password flow to display an instant `"Reset Password Now"` button on screen and integrated Nodemailer for optional SMTP inbox delivery.
 - **MongoDB Atlas Connection Verified**: Successfully connected to Atlas cluster (`ac-4eyohph-shard-00-00.bkcuuwk.mongodb.net`) and seeded initial database data (6 categories, 18 products, 2 coupons, admin user).
