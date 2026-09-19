@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://electronic-store-97t1.vercel.app/api/:path*"
+      "destination": "https://electronic-store-x34q.vercel.app/api/:path*"
     }
   ]
 }
