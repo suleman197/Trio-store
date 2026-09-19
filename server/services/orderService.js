@@ -64,12 +64,12 @@ const createOrder = async (user, payload) => {
     appliedCouponCode = couponDoc.code;
   }
 
-  // ---- Bank transfer discount (20% off subtotal) ----
+  // ---- Bank transfer discount (Flat PKR discount) ----
   let bankDiscount = 0;
   if (paymentMethod === 'bank') {
     const settings = await SiteSettings.findById('site').lean();
-    const discountPercent = settings?.bankDiscountPercent || 20;
-    bankDiscount = Math.round((subtotal - discount) * (discountPercent / 100) * 100) / 100;
+    const flatDiscount = Number(settings?.bankDiscountPercent) || 200;
+    bankDiscount = Math.min(Math.max(0, subtotal - discount), flatDiscount);
   }
 
   // ---- Shipping & tax ----

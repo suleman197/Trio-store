@@ -313,7 +313,7 @@ function OrdersList() {
             <dl className="text-sm space-y-1.5 max-w-xs ml-auto">
               <Row label="Subtotal" value={formatCurrency(viewTarget.subtotal)} />
               {viewTarget.discount > 0 && <Row label={`Discount${viewTarget.couponCode ? ` (${viewTarget.couponCode})` : ''}`} value={`-${formatCurrency(viewTarget.discount)}`} />}
-              {viewTarget.bankDiscount > 0 && <Row label="Bank Discount (20%)" value={`-${formatCurrency(viewTarget.bankDiscount)}`} />}
+              {viewTarget.bankDiscount > 0 && <Row label="Bank Discount" value={`-${formatCurrency(viewTarget.bankDiscount)}`} />}
               <Row label="Shipping" value={viewTarget.shippingFee === 0 ? 'Free' : formatCurrency(viewTarget.shippingFee)} />
               <Row label="Tax" value={formatCurrency(viewTarget.tax)} />
               <div className="flex justify-between border-t border-ink-800 pt-1.5">

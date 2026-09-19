@@ -45,7 +45,8 @@ export default function Checkout() {
   const subtotal = cart.subtotal || 0;
   const couponDiscount = appliedCoupon ? Math.min(appliedCoupon.discount ?? 0, subtotal) : 0;
   const afterCoupon = subtotal - couponDiscount;
-  const bankDiscount = paymentMethod === 'bank' ? Math.round(afterCoupon * (BANK_DISCOUNT_PERCENT / 100)) : 0;
+  const bankDiscountAmount = Number(settings.bankDiscountPercent) || 200;
+  const bankDiscount = paymentMethod === 'bank' ? Math.min(afterCoupon, bankDiscountAmount) : 0;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING_FEE;
   const taxableAmount = afterCoupon - bankDiscount;
   const tax = Math.round(taxableAmount * 5) / 100;
@@ -205,7 +206,7 @@ export default function Checkout() {
           </div>
           {placedOrder.bankDiscount > 0 && (
             <div className="flex justify-between px-6 py-4">
-              <dt className="text-emerald-500">Bank Discount (20%)</dt>
+              <dt className="text-emerald-500">Bank Discount</dt>
               <dd className="font-bold text-emerald-500">-{formatCurrency(placedOrder.bankDiscount)}</dd>
             </div>
           )}
@@ -377,11 +378,11 @@ export default function Checkout() {
                       <span className="flex items-center gap-2 font-semibold text-white">
                         <Building2 size={18} /> Bank Transfer
                         <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                          {BANK_DISCOUNT_PERCENT}% OFF
+                          {formatCurrency(bankDiscountAmount)} OFF
                         </span>
                       </span>
                       <span className="block text-sm text-ink-400 mt-1 leading-relaxed">
-                        Get {BANK_DISCOUNT_PERCENT}% discount! Transfer to our bank account and upload payment screenshot.
+                        Get {formatCurrency(bankDiscountAmount)} discount! Transfer to our bank account and upload payment screenshot.
                       </span>
                     </span>
                   </label>
@@ -451,7 +452,7 @@ export default function Checkout() {
             <dl className="space-y-2.5 text-sm">
               <SumRow label={`Items (${cart.itemCount})`} value={formatCurrency(subtotal)} />
               {couponDiscount > 0 && <SumRow label={`Coupon (${appliedCoupon.code})`} value={`-${formatCurrency(couponDiscount)}`} accent />}
-              {bankDiscount > 0 && <SumRow label={`Bank Discount (${BANK_DISCOUNT_PERCENT}%)`} value={`-${formatCurrency(bankDiscount)}`} accent />}
+              {bankDiscount > 0 && <SumRow label="Bank Discount" value={`-${formatCurrency(bankDiscount)}`} accent />}
               <SumRow label="Shipping" value={shippingFee === 0 ? 'Free' : formatCurrency(shippingFee)} />
               <SumRow label="Tax (5%)" value={formatCurrency(tax)} />
               <div className="border-t border-ink-800 pt-3 flex justify-between items-baseline">

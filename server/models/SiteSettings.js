@@ -38,7 +38,7 @@ const siteSettingsSchema = new mongoose.Schema(
     bankName: { type: String, default: 'HBL' },
     bankAccountTitle: { type: String, default: 'MUHAMMAD ADA' },
     bankAccountNumber: { type: String, default: '09917902364499' },
-    bankDiscountPercent: { type: Number, default: 20 },
+    bankDiscountPercent: { type: Number, default: 200 },
   },
   { timestamps: true }
 );

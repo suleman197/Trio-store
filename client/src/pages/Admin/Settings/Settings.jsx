@@ -192,11 +192,11 @@ function BankTab({ form, set }) {
   return (
     <div className="space-y-6">
       <SectionTitle>Bank Payment Details</SectionTitle>
-      <p className="text-xs text-ink-500 mb-2">Customers who choose bank transfer will see these details. They receive a 20% discount for bank payments.</p>
+      <p className="text-xs text-ink-500 mb-2">Customers who choose bank transfer will see these details. They receive a flat PKR discount for bank payments.</p>
       <Input label="Bank Name" value={form.bankName} onChange={(v) => set('bankName', v)} placeholder="HBL" />
       <Input label="Account Title" value={form.bankAccountTitle} onChange={(v) => set('bankAccountTitle', v)} placeholder="MUHAMMAD ADA" />
       <Input label="Account Number" value={form.bankAccountNumber} onChange={(v) => set('bankAccountNumber', v)} placeholder="09917902364499" />
-      <Input label="Discount Percent" value={form.bankDiscountPercent} onChange={(v) => set('bankDiscountPercent', parseInt(v) || 0)} type="number" placeholder="20" />
+      <Input label="Discount PKR" value={form.bankDiscountPercent} onChange={(v) => set('bankDiscountPercent', parseInt(v) || 0)} type="number" placeholder="200" />
     </div>
   );
 }

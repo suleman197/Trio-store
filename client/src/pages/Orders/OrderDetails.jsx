@@ -169,7 +169,7 @@ export default function OrderDetails() {
                 <Row label={`Discount${order.couponCode ? ` (${order.couponCode})` : ''}`} value={`-${formatCurrency(order.discount)}`} accent />
               )}
               {order.bankDiscount > 0 && (
-                <Row label="Bank Discount (20%)" value={`-${formatCurrency(order.bankDiscount)}`} accent />
+                <Row label="Bank Discount" value={`-${formatCurrency(order.bankDiscount)}`} accent />
               )}
               <Row label="Shipping" value={order.shippingFee === 0 ? 'Free' : formatCurrency(order.shippingFee)} />
               <Row label="Tax" value={formatCurrency(order.tax)} />

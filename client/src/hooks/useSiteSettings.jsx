@@ -20,7 +20,7 @@ const DEFAULTS = {
   bankName: 'HBL',
   bankAccountTitle: 'MUHAMMAD ADA',
   bankAccountNumber: '09917902364499',
-  bankDiscountPercent: 20,
+  bankDiscountPercent: 200,
 };
 
 export function SettingsProvider({ children }) {
