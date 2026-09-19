@@ -230,7 +230,7 @@ export default function OrderDetails() {
               <br />
               {order.shippingAddress.address}
               <br />
-              {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode ? order.shippingAddress.postalCode : ''}
+              {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode && order.shippingAddress.postalCode !== 'N/A' ? order.shippingAddress.postalCode : ''}
               <br />
               {order.shippingAddress.country}
               <br />

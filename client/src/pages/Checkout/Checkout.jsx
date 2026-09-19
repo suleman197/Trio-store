@@ -101,7 +101,10 @@ export default function Checkout() {
           variant: i.variant || {},
         })),
         customerInfo: info,
-        shippingAddress: address,
+        shippingAddress: {
+          ...address,
+          postalCode: address.postalCode?.trim() || 'N/A',
+        },
         paymentMethod,
         couponCode: appliedCoupon?.code || undefined,
         bankDetails: paymentMethod === 'bank' ? {

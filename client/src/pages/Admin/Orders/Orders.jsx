@@ -193,7 +193,7 @@ function OrdersList() {
                 <p className="text-[11px] font-bold uppercase tracking-widest text-ink-500 mb-1">Ship To</p>
                 <p className="text-ink-400 leading-relaxed">
                   {viewTarget.shippingAddress?.address},<br />
-                  {viewTarget.shippingAddress?.city}, {viewTarget.shippingAddress?.state} {viewTarget.shippingAddress?.postalCode || ''}<br />
+                  {viewTarget.shippingAddress?.city}, {viewTarget.shippingAddress?.state} {viewTarget.shippingAddress?.postalCode && viewTarget.shippingAddress?.postalCode !== 'N/A' ? viewTarget.shippingAddress?.postalCode : ''}<br />
                   {viewTarget.shippingAddress?.country}
                 </p>
               </div>
