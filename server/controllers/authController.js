@@ -86,16 +86,47 @@ exports.updateMe = asyncHandler(async (req, res) => {
 exports.forgotPassword = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: req.body.email.toLowerCase() });
   const genericMessage = 'If that account exists, a reset link has been generated.';
-  if (!user) return ok(res, { message: genericMessage });
+  if (!user) return ok(res, { message: genericMessage, data: { resetToken: null } });
 
   const resetToken = crypto.randomBytes(32).toString('hex');
   user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
   user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 min
   await user.save({ validateBeforeSave: false });
 
+  const clientUrl = (process.env.CLIENT_URL || 'https://triostore.vercel.app').split(',')[0].trim();
+  const resetUrl = `${clientUrl}/reset-password?token=${resetToken}`;
+
+  let emailSent = false;
+  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    try {
+      const nodemailer = require('nodemailer');
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: Number(process.env.SMTP_PORT) === 465,
+        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      });
+      await transporter.sendMail({
+        from: `"Trio Store" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+        to: user.email,
+        subject: 'Password Reset Request - Trio Store',
+        html: `<div style="font-family: sans-serif; padding: 20px; color: #333;">
+          <h2>Reset Your Password</h2>
+          <p>Hello ${user.firstName || 'Customer'},</p>
+          <p>You requested a password reset for your Trio Store account.</p>
+          <p><a href="${resetUrl}" style="background-color: #d4af37; color: #000; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; display: inline-block;">Reset Password Now</a></p>
+          <p style="font-size: 12px; color: #888; margin-top: 20px;">This link will expire in 15 minutes. If you did not request this, please ignore this email.</p>
+        </div>`,
+      });
+      emailSent = true;
+    } catch (err) {
+      console.error('[email] SMTP error:', err.message);
+    }
+  }
+
   ok(res, {
     message: genericMessage,
-    data: undefined,
+    data: { resetToken, resetUrl, emailSent },
   });
 });
 

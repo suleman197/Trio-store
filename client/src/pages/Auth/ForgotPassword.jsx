@@ -32,18 +32,23 @@ export default function ForgotPassword() {
   return (
     <AuthShell title="Forgot your password?" subtitle="We'll generate a reset link for your account">
       {sent ? (
-        <div className="text-center py-4">
-          <MailCheck size={40} className="mx-auto text-ink-300" strokeWidth={1.5} />
-          <p className="mt-4 text-sm text-ink-600 leading-relaxed">
-            If an account exists for <span className="font-semibold">{email}</span>, a password reset link has been generated.
+        <div className="text-center py-4 space-y-4">
+          <MailCheck size={44} className="mx-auto text-gold-500" strokeWidth={1.5} />
+          <h3 className="text-lg font-bold text-white">Reset Link Generated</h3>
+          <p className="text-sm text-ink-400 leading-relaxed max-w-sm mx-auto">
+            If an account exists for <span className="font-semibold text-white">{email}</span>, a password reset link has been created.
           </p>
+
           {devToken && (
-            <Link
-              to={`/reset-password?token=${devToken}`}
-              className="mt-5 inline-block bg-black text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-ink-800 transition-colors"
-            >
-              Continue to Reset (dev mode)
-            </Link>
+            <div className="mt-6 border border-gold-500/30 bg-gold-500/10 rounded-xl p-5 text-center">
+              <p className="text-xs text-gold-400 font-semibold mb-3">Click below to set your new password:</p>
+              <Link
+                to={`/reset-password?token=${devToken}`}
+                className="inline-block bg-gold-500 text-black px-6 py-3 rounded-lg text-sm font-bold hover:bg-gold-600 transition-colors shadow-md"
+              >
+                Reset Password Now
+              </Link>
+            </div>
           )}
         </div>
       ) : (
