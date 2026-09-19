@@ -48,11 +48,9 @@ export default function Footer() {
     <footer className="bg-[#050505] text-white mt-20">
       {/* Trust bar */}
       <div className="border-b border-ink-800">
-        <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-2 gap-8 max-w-3xl">
           {[
             [Truck, 'Free Shipping', 'On all orders over $500'],
-            [RotateCcw, '30-Day Returns', 'Hassle-free return policy'],
-            [ShieldCheck, '2-Year Warranty', 'On eligible products'],
             [CreditCard, 'Secure Payments', '256-bit SSL encrypted'],
           ].map(([Icon, title, sub]) => (
             <div key={title} className="flex items-start gap-3">
