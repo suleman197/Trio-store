@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Order Total Price Alignment**: Fixed price discrepancy between checkout summary (e.g. Rs 398) and order placement total (e.g. Rs 423) by ensuring backend `orderService.js` strictly uses `discountPrice` when available.
 - **Single Item "Buy Now" Isolation**: Updated `buyNowItem` across Wishlist and Product Details so that clicking "Buy Now" clears old cart items and proceeds to checkout with ONLY the selected product.
 - **Checkout Summary Item Count Fix**: Fixed Checkout summary rail displaying incorrect item count by computing total units dynamically from active cart items.
 - **Free Shipping Subtitle Update**: Changed Free Shipping text in Footer and Product Details page to `"On all available products"`.
