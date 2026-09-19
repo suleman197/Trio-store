@@ -122,6 +122,11 @@ const useCartStore = create(
         }
         set({ ...emptySummary });
       },
+
+      buyNowItem: async (product, quantity = 1, variant = {}) => {
+        await get().clear();
+        await get().addItem(product, quantity, variant);
+      },
     }),
     {
       name: 'voltiq_cart',

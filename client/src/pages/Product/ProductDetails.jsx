@@ -39,6 +39,7 @@ export default function ProductDetails() {
   const [variant, setVariant] = useState({});
   const [tab, setTab] = useState('Description');
   const addToCart = useCartStore((s) => s.addItem);
+  const buyNowItem = useCartStore((s) => s.buyNowItem);
   const toggleWishlist = useWishlistStore((s) => s.toggle);
   const wishlisted = useWishlistStore((s) => (product ? s.has(product._id) : false));
   const user = useAuthStore((s) => s.user);
@@ -79,9 +80,13 @@ export default function ProductDetails() {
     }
     if (!requireVariant()) return;
     try {
-      await addToCart(product, qty, variant);
-      if (buyNow) navigate('/checkout');
-      else toast.success('Added to cart');
+      if (buyNow) {
+        await buyNowItem(product, qty, variant);
+        navigate('/checkout');
+      } else {
+        await addToCart(product, qty, variant);
+        toast.success('Added to cart');
+      }
     } catch (err) {
       toast.error(err.message);
     }

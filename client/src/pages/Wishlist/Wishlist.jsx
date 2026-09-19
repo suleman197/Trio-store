@@ -1,22 +1,40 @@
-import { Link } from 'react-router-dom';
-import { Heart, ShoppingBag, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Heart, ShoppingBag, Zap, X } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import useWishlistStore from '../../store/wishlistStore';
 import useCartStore from '../../store/cartStore';
+import useAuthStore from '../../store/authStore';
 import EmptyState from '../../components/common/EmptyState';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import RatingStars from '../../components/common/RatingStars';
 import { formatCurrency, effectivePrice, discountPercent } from '../../utils/format';
 
 export default function Wishlist() {
+  const navigate = useNavigate();
   const products = useWishlistStore((s) => s.products);
   const toggle = useWishlistStore((s) => s.toggle);
   const addToCart = useCartStore((s) => s.addItem);
+  const buyNowItem = useCartStore((s) => s.buyNowItem);
+  const user = useAuthStore((s) => s.user);
 
   const handleAddToCart = async (p) => {
     try {
       await addToCart(p, 1);
       toast.success('Added to cart');
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleBuyNow = async (p) => {
+    if (!user) {
+      toast.error('Please sign in first');
+      navigate('/login');
+      return;
+    }
+    try {
+      await buyNowItem(p, 1);
+      navigate('/checkout');
     } catch (err) {
       toast.error(err.message);
     }
@@ -71,7 +89,7 @@ export default function Wishlist() {
                     </button>
                   </div>
                   <RatingStars rating={p.rating} count={p.reviewCount} size={11} />
-                  <div className="mt-auto pt-2 flex items-center justify-between gap-2">
+                  <div className="mt-auto pt-2 flex flex-wrap items-center justify-between gap-2">
                     <div>
                       <span className="font-bold text-white">{formatCurrency(price)}</span>
                       {off > 0 && <span className="ml-1.5 text-xs text-ink-500 line-through">{formatCurrency(p.price)}</span>}
@@ -79,13 +97,22 @@ export default function Wishlist() {
                         {outOfStock ? 'Out of Stock' : p.stock <= (p.lowStockThreshold ?? 5) ? `Only ${p.stock} left` : 'In Stock'}
                       </p>
                     </div>
-                    <button
-                      onClick={() => handleAddToCart(p)}
-                      disabled={outOfStock}
-                      className="shrink-0 inline-flex items-center gap-1.5 bg-gold-500 text-black px-3.5 py-2 rounded-lg text-xs font-semibold hover:bg-gold-600 disabled:opacity-40 disabled:pointer-events-none transition-colors"
-                    >
-                      <ShoppingBag size={13} /> Add to Cart
-                    </button>
+                    <div className="flex items-center gap-2 mt-1">
+                      <button
+                        onClick={() => handleBuyNow(p)}
+                        disabled={outOfStock}
+                        className="shrink-0 inline-flex items-center gap-1 bg-gold-500 text-black px-2.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-gold-600 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                      >
+                        <Zap size={13} /> Buy Now
+                      </button>
+                      <button
+                        onClick={() => handleAddToCart(p)}
+                        disabled={outOfStock}
+                        className="shrink-0 inline-flex items-center gap-1 border border-ink-700 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold hover:border-gold-500 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+                      >
+                        <ShoppingBag size={13} /> Add to Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
