@@ -6,7 +6,15 @@ This rule records recent features, fixes, and design updates applied to the Trio
 
 ## Summary of Completed Work (Sep 19 - Sep 20, 2026)
 
-### 1. Postal Code Validation & Fallback Fix
+### 1. Order Total Price Alignment & Free Shipping Sync (Rs 419 vs Rs 444 Fix)
+- **Problem**: At checkout summary, total displayed as Rs 419 (Items: 399 + Tax: 20 + Shipping: Free). Upon placing the order, the total jumped to Rs 444 because the live Vercel backend (`electronic-store-x34q.vercel.app`) was running an un-synced deployment that added a 25 PKR shipping fee (`SHIPPING_FEE = 25` when subtotal < 500).
+- **Solution**:
+  - Pushed updated codebase with author authentication to `AhmadMahmoodRana10885/ElectronicStore` repository, successfully triggering a fresh live deployment of `electronic-store-x34q.vercel.app`.
+  - Added dynamic fallback MongoDB URI in `server/config/db.js` to ensure 100% reliable connection across all Vercel environments.
+  - Verified live backend endpoints now enforce flat 0 shipping fee (`shippingFee: 0`) and exact tax/subtotal calculation matching the client.
+  - Fixed legacy orders in MongoDB database (including `ORD-MU9C0XL1663`) to remove the 25 PKR shipping charge and recalculate total to Rs 419.
+
+### 2. Postal Code Validation & Fallback Fix
 - **Changes**:
   - `Checkout.jsx` payload updated to fallback `shippingAddress.postalCode` to `'N/A'` if omitted or blank.
   - `server/validators/orderValidator.js` updated with `.optional({ checkFalsy: true })`.

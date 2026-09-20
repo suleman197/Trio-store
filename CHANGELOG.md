@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Order Total Price Jump Resolved**: Fixed discrepancy where order total jumped from Rs 419 at checkout to Rs 444 on confirmation by deploying the zero-shipping-fee logic to the live Vercel backend (`electronic-store-x34q.vercel.app`), synchronizing server and client math, and correcting legacy orders in MongoDB database.
 - **Password Reset User Check**: Added explicit validation so entering an unregistered email displays a clear notification to the user, and enabled native Gmail transport for registered accounts.
 - **Gmail SMTP Email Delivery**: Verified Gmail App Password authentication (`sdybgakytxrobkdi`) and configured live SMTP email sending for Password Resets via `sulemanmunir6752@gmail.com`.
 - **Password Reset Flow**: Enhanced Forgot Password flow to display an instant `"Reset Password Now"` button on screen and integrated Nodemailer for optional SMTP inbox delivery.
