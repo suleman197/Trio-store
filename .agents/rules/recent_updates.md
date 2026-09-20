@@ -56,6 +56,6 @@ This rule records recent features, fixes, and design updates applied to the Trio
 
 ## Environment & Server Details
 - **Frontend App**: `https://triostore.vercel.app`
-- **Backend API**: `https://electronic-store-x34q.vercel.app/api`
+- **Backend API**: `https://electronic-store-9xxs.vercel.app/api`
 - **Database**: MongoDB Atlas (`cluster0.bkcuuwk.mongodb.net`, database: `electronicstore`)
 - **SMTP Email**: `smtp.gmail.com:587` (`sulemanmunir6752@gmail.com`)
