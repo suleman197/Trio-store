@@ -140,7 +140,7 @@ const sendOrderConfirmationEmail = async (order) => {
                 <td style="padding: 5px 0; text-align: right; color: #10b981; font-weight: 700;">FREE</td>
               </tr>
               <tr>
-                <td style="padding: 5px 0; color: #888;">Sales Tax (5%)</td>
+                <td style="padding: 5px 0; color: #888;">Sales Tax (2%)</td>
                 <td style="padding: 5px 0; text-align: right; color: #ffffff; font-weight: 600;">${formatPrice(order.tax)}</td>
               </tr>
               <tr style="border-top: 1px solid #333;">

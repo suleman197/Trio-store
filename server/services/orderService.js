@@ -8,7 +8,7 @@ const { applyCoupon } = require('./couponService');
 const { sendOrderConfirmationEmail } = require('./emailService');
 const ApiError = require('../utils/ApiError');
 
-const TAX_RATE = 0.05; // 5% sales tax
+const TAX_RATE = 0.02; // 2% sales tax
 const FREE_SHIPPING_THRESHOLD = 500;
 const SHIPPING_FEE = 0;
 

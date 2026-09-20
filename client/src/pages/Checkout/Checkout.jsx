@@ -49,7 +49,7 @@ export default function Checkout() {
   const bankDiscount = paymentMethod === 'bank' ? Math.min(afterCoupon, bankDiscountAmount) : 0;
   const shippingFee = 0;
   const taxableAmount = afterCoupon - bankDiscount;
-  const tax = Math.round(taxableAmount * 5) / 100;
+  const tax = Math.round(taxableAmount * 2) / 100;
   const total = Math.round((taxableAmount + tax) * 100) / 100;
 
   const setField = (setter) => (e) => setter((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -456,7 +456,7 @@ export default function Checkout() {
               <SumRow label={`Items (${cart.items.reduce((s, i) => s + (i.quantity || 1), 0)})`} value={formatCurrency(subtotal)} />
               {couponDiscount > 0 && <SumRow label={`Coupon (${appliedCoupon.code})`} value={`-${formatCurrency(couponDiscount)}`} accent />}
               {bankDiscount > 0 && <SumRow label="Bank Discount" value={`-${formatCurrency(bankDiscount)}`} accent />}
-              <SumRow label="Tax (5%)" value={formatCurrency(tax)} />
+              <SumRow label="Tax (2%)" value={formatCurrency(tax)} />
               <div className="border-t border-ink-800 pt-3 flex justify-between items-baseline">
                 <dt className="font-bold text-white">Total</dt>
                 <dd className="font-extrabold text-xl tracking-tight text-white">{formatCurrency(total)}</dd>

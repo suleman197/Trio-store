@@ -18,7 +18,7 @@ export default function Cart() {
 
   const shipping = 0;
   const discount = coupon?.discount ?? 0;
-  const tax = Math.round((subtotal - discount) * 0.05 * 100) / 100;
+  const tax = Math.round((subtotal - discount) * 0.02 * 100) / 100;
   const total = Math.round((subtotal - discount + tax) * 100) / 100;
 
   const applyCoupon = async () => {
@@ -141,7 +141,7 @@ export default function Cart() {
           <dl className="space-y-2.5 text-sm border-t border-ink-800 pt-4">
             <Row label="Subtotal" value={formatCurrency(subtotal)} />
             {discount > 0 && <Row label="Discount" value={`-${formatCurrency(discount)}`} accent />}
-            <Row label="Tax (5%)" value={formatCurrency(tax)} />
+            <Row label="Tax (2%)" value={formatCurrency(tax)} />
             <div className="border-t border-ink-800 pt-3 flex justify-between">
               <dt className="font-bold text-white">Total</dt>
               <dd className="font-extrabold text-lg tracking-tight text-white">{formatCurrency(total)}</dd>
