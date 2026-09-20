@@ -139,10 +139,12 @@ const createOrder = async (user, payload) => {
   // ---- Clear cart ----
   await Cart.deleteOne({ user: user._id });
 
-  // ---- Dispatch confirmation email to customer (non-blocking) ----
-  sendOrderConfirmationEmail(order).catch((err) => {
+  // ---- Dispatch confirmation email to customer ----
+  try {
+    await sendOrderConfirmationEmail(order);
+  } catch (err) {
     console.error('[email] Order confirmation email error:', err.message);
-  });
+  }
 
   return order;
 };
