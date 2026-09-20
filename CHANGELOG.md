@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Automated Order Confirmation Emails**: Implemented rich HTML confirmation emails dispatched to customers upon placing an order via Nodemailer Gmail SMTP (`sulemanmunir6752@gmail.com`). Emails feature branded styling, complete product details, pricing summary, free delivery status, 2-4 business day delivery timeline, customer address, and direct order tracking button.
 - **Password Reset Live Email Delivery Fix**: Added direct SMTP fallback credentials in `authController.js` and repointed client API endpoints to active backend `electronic-store-9xxs.vercel.app`, ensuring password reset emails are delivered to recipients' inboxes via Gmail SMTP.
 - **Order Total Price Jump Resolved**: Fixed discrepancy where order total jumped from Rs 419 at checkout to Rs 444 on confirmation by deploying the zero-shipping-fee logic to the live Vercel backend (`electronic-store-9xxs.vercel.app`), synchronizing server and client math, and correcting legacy orders in MongoDB database.
 - **Password Reset User Check**: Added explicit validation so entering an unregistered email displays a clear notification to the user, and enabled native Gmail transport for registered accounts.

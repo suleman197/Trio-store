@@ -5,6 +5,7 @@ const InventoryLog = require('../models/InventoryLog');
 const Coupon = require('../models/Coupon');
 const SiteSettings = require('../models/SiteSettings');
 const { applyCoupon } = require('./couponService');
+const { sendOrderConfirmationEmail } = require('./emailService');
 const ApiError = require('../utils/ApiError');
 
 const TAX_RATE = 0.05; // 5% sales tax
@@ -137,6 +138,11 @@ const createOrder = async (user, payload) => {
 
   // ---- Clear cart ----
   await Cart.deleteOne({ user: user._id });
+
+  // ---- Dispatch confirmation email to customer (non-blocking) ----
+  sendOrderConfirmationEmail(order).catch((err) => {
+    console.error('[email] Order confirmation email error:', err.message);
+  });
 
   return order;
 };

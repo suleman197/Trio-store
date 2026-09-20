@@ -6,7 +6,12 @@ This rule records recent features, fixes, and design updates applied to the Trio
 
 ## Summary of Completed Work (Sep 19 - Sep 20, 2026)
 
-### 1. Order Total Price Alignment & Free Shipping Sync (Rs 419 vs Rs 444 Fix)
+### 1. Automated Order Confirmation Emails via Gmail SMTP
+- **Feature**: Automatically dispatches a rich HTML email to the customer's email address upon successful order placement (`orderService.js` -> `emailService.js`).
+- **Email Content**: Includes Trio Store branding, expected delivery timeline (2 to 4 business days), detailed product list with images/variants, pricing summary (free delivery, taxes, discounts, grand total), customer delivery address, and direct "View Order Details" tracking link.
+- **Reliability**: Configured with fallback Gmail SMTP credentials (`sulemanmunir6752@gmail.com`) and non-blocking execution to ensure order placement is always fast and resilient.
+
+### 2. Order Total Price Alignment & Free Shipping Sync (Rs 419 vs Rs 444 Fix)
 - **Problem**: At checkout summary, total displayed as Rs 419 (Items: 399 + Tax: 20 + Shipping: Free). Upon placing the order, the total jumped to Rs 444 because the live Vercel backend (`electronic-store-x34q.vercel.app`) was running an un-synced deployment that added a 25 PKR shipping fee (`SHIPPING_FEE = 25` when subtotal < 500).
 - **Solution**:
   - Pushed updated codebase with author authentication to `AhmadMahmoodRana10885/ElectronicStore` repository, successfully triggering a fresh live deployment of `electronic-store-x34q.vercel.app`.
