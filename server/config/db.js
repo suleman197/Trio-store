@@ -9,7 +9,9 @@ try {
 }
 
 const connectDB = async () => {
-  const MONGODB_URI = process.env.MONGODB_URI;
+  const MONGODB_URI =
+    process.env.MONGODB_URI ||
+    'mongodb+srv://ahmadmahmoodworkingprojects_db_user:jzjiWrb3B9bWdWlL@electronicstore.pi142ql.mongodb.net/test?retryWrites=true&w=majority&appName=ElectronicStore';
 
   if (!MONGODB_URI) {
     console.error('[db] Error: MONGODB_URI is not set in environment variables');
