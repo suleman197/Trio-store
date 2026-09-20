@@ -101,8 +101,8 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
 
   let emailSent = false;
   let emailError = null;
-  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'sulemanmunir6752@gmail.com';
-  const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_PASS || 'sdybgakytxrobkdi';
+  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'triostoreinfo@gmail.com';
+  const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_PASS || 'bnaphlzxmdwcykuf';
 
   if (smtpUser && smtpPass) {
     try {

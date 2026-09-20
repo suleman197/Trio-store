@@ -1,8 +1,8 @@
 const nodemailer = require('nodemailer');
 
 const getTransporter = () => {
-  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'sulemanmunir6752@gmail.com';
-  const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_PASS || 'sdybgakytxrobkdi';
+  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'triostoreinfo@gmail.com';
+  const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_PASS || 'bnaphlzxmdwcykuf';
 
   return nodemailer.createTransport({
     service: 'gmail',
@@ -25,7 +25,7 @@ const sendOrderConfirmationEmail = async (order) => {
     return;
   }
 
-  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'sulemanmunir6752@gmail.com';
+  const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'triostoreinfo@gmail.com';
   const clientUrl = (process.env.CLIENT_URL || 'https://triostore.vercel.app').split(',')[0].trim();
   const orderUrl = `${clientUrl}/orders/${order._id}`;
   const customerName = `${order.customerInfo.firstName || 'Valued'} ${order.customerInfo.lastName || 'Customer'}`.trim();

@@ -7,6 +7,7 @@ All notable changes and updates made to the project are documented in this file.
 ## [Unreleased] - 2026-09-19
 
 ### Fixed & Improved
+- **Official Store Business Email Switch**: Switched SMTP configuration from personal email to official store business Gmail (`triostoreinfo@gmail.com`) with verified App Password across `server/.env`, `emailService.js`, and `authController.js`. All password resets and order confirmations now send officially as `"Trio Store" <triostoreinfo@gmail.com>`.
 - **Automated Order Confirmation Emails Awaited**: Added `await` to `sendOrderConfirmationEmail` inside `orderService.js` to ensure Vercel Serverless Function does not freeze execution before Gmail SMTP dispatches the confirmation email to the customer (`order.customerInfo.email`).
 - **Automated Order Confirmation Emails**: Implemented rich HTML confirmation emails dispatched to customers upon placing an order via Nodemailer Gmail SMTP (`sulemanmunir6752@gmail.com`). Emails feature branded styling, complete product details, pricing summary, free delivery status, 2-4 business day delivery timeline, customer address, and direct order tracking button.
 - **Password Reset Live Email Delivery Fix**: Added direct SMTP fallback credentials in `authController.js` and repointed client API endpoints to active backend `electronic-store-9xxs.vercel.app`, ensuring password reset emails are delivered to recipients' inboxes via Gmail SMTP.
