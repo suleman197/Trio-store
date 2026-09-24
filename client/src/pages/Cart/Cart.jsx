@@ -53,48 +53,49 @@ export default function Cart() {
     );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pb-16">
+    <div className="w-full max-w-7xl mx-auto px-3.5 sm:px-6 pb-16 min-w-0 overflow-x-hidden">
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Shopping Cart' }]} />
-      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-white">Shopping Cart</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 sm:mb-8 text-white">Shopping Cart</h1>
 
-      <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+      <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start w-full min-w-0">
         {/* Items */}
-        <div className="border border-ink-800 rounded-2xl divide-y divide-ink-800 overflow-hidden bg-[#111]">
+        <div className="border border-ink-800 rounded-2xl divide-y divide-ink-800 overflow-hidden bg-[#111] w-full min-w-0">
           {items.map((item) => (
-            <div key={item._id} className="p-5 flex gap-5">
+            <div key={item._id} className="p-3.5 sm:p-5 flex gap-3 sm:gap-5 min-w-0">
               <img
                 src={item.product?.images?.[0] || item.image}
                 alt=""
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover border border-ink-800 bg-ink-900 shrink-0"
+                className="w-20 h-20 sm:w-28 sm:h-28 rounded-xl object-cover border border-ink-800 bg-ink-900 shrink-0"
                 onError={(e) => (e.currentTarget.style.opacity = '0.25')}
               />
               <div className="flex-1 min-w-0 flex flex-col">
-                <div className="flex justify-between gap-3">
+                <div className="flex justify-between gap-2 sm:gap-3">
                   <div className="min-w-0">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-500">{item.product?.brand || item.brand}</p>
-                    <Link to={`/product/${item.product?.slug || item.slug}`} className="font-semibold hover:text-gold-400 line-clamp-2 mt-0.5 block text-white">
+                    <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-gold-500 truncate">{item.product?.brand || item.brand}</p>
+                    <Link to={`/product/${item.product?.slug || item.slug}`} className="font-semibold text-xs sm:text-base hover:text-gold-400 line-clamp-2 mt-0.5 block text-white break-words">
                       {item.product?.name || item.name}
                     </Link>
                     {item.variant && Object.keys(item.variant).length > 0 && (
-                      <p className="text-xs text-ink-500 mt-1">{Object.entries(item.variant).map(([k, v]) => `${k}: ${v}`).join(' · ')}</p>
+                      <p className="text-xs text-ink-500 mt-1 break-words">{Object.entries(item.variant).map(([k, v]) => `${k}: ${v}`).join(' · ')}</p>
                     )}
                   </div>
                   <button
                     onClick={() => removeItem(item._id).catch((e) => toast.error(e.message))}
                     aria-label="Remove"
-                    className="p-1.5 h-fit rounded-lg text-ink-500 hover:text-red-500 hover:bg-red-500/10 transition-colors"
+                    className="p-1.5 h-fit rounded-lg text-ink-500 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0"
                   >
                     <Trash2 size={16} />
                   </button>
                 </div>
-                <div className="mt-auto pt-3 flex items-center justify-between gap-3">
+                <div className="mt-auto pt-3 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
                   <QuantitySelector
                     value={item.quantity}
                     max={item.product?.stock || item.stock || 99}
                     onChange={(q) => updateItem(item._id, q).catch((e) => toast.error(e.message))}
+                    size="sm"
                   />
                   <div className="text-right">
-                    <p className="font-bold text-white">{formatCurrency((item.unitPrice ?? item.price) * item.quantity)}</p>
+                    <p className="font-bold text-sm sm:text-base text-white">{formatCurrency((item.unitPrice ?? item.price) * item.quantity)}</p>
                     {(item.unitPrice ?? item.price) !== item.price && (
                       <p className="text-xs text-ink-500 line-through">{formatCurrency(item.price * item.quantity)}</p>
                     )}

@@ -111,7 +111,7 @@ export default function ProductDetails() {
   const images = product.images?.length ? product.images : ['/placeholder.svg'];
 
   return (
-    <div className="max-w-7xl mx-auto px-4">
+    <div className="w-full max-w-7xl mx-auto px-3.5 sm:px-6 min-w-0 overflow-x-hidden">
       <Breadcrumbs
         items={[
           { label: 'Home', to: '/' },
@@ -121,13 +121,13 @@ export default function ProductDetails() {
         ]}
       />
 
-      <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 pb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 pb-12 w-full min-w-0">
         {/* Gallery */}
-        <div>
-          <div className="relative aspect-square rounded-2xl overflow-hidden border border-ink-800 bg-[#111]">
+        <div className="w-full min-w-0 overflow-hidden">
+          <div className="relative aspect-square rounded-2xl overflow-hidden border border-ink-800 bg-[#111] w-full">
             <img src={images[imgIdx]} alt={product.name} className="w-full h-full object-cover" />
             {off > 0 && (
-              <span className="absolute top-4 left-4 bg-gold-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg">
+              <span className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gold-500 text-black text-xs font-bold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg shadow-md">
                 -{off}% OFF
               </span>
             )}
@@ -139,13 +139,13 @@ export default function ProductDetails() {
             )}
           </div>
           {images.length > 1 && (
-            <div className="flex gap-3 mt-4 overflow-x-auto pb-1">
+            <div className="flex gap-2.5 sm:gap-3 mt-3 sm:mt-4 overflow-x-auto pb-2 scrollbar-none w-full max-w-full touch-pan-x">
               {images.map((src, i) => (
                 <button
                   key={i}
                   onClick={() => setImgIdx(i)}
-                  className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
-                    i === imgIdx ? 'border-gold-500' : 'border-ink-800 hover:border-ink-600 opacity-70 hover:opacity-100'
+                  className={`shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 transition-all ${
+                    i === imgIdx ? 'border-gold-500 ring-2 ring-gold-500/20' : 'border-ink-800 hover:border-ink-600 opacity-70 hover:opacity-100'
                   }`}
                 >
                   <img src={src} alt="" className="w-full h-full object-cover" />
@@ -156,8 +156,8 @@ export default function ProductDetails() {
         </div>
 
         {/* Info */}
-        <div className="flex flex-col">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col w-full min-w-0">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <Link
               to={`/shop?brand=${encodeURIComponent(product.brand)}`}
               className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-500 hover:text-gold-400 transition-colors"
@@ -167,18 +167,20 @@ export default function ProductDetails() {
             <span className="text-xs text-ink-600">SKU: {product.sku}</span>
           </div>
 
-          <h1 className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight leading-snug text-white">{product.name}</h1>
+          <h1 className="mt-2 text-xl sm:text-2xl md:text-3xl font-bold tracking-tight leading-snug text-white break-words">
+            {product.name}
+          </h1>
 
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <RatingStars rating={product.rating} size={16} showValue count={product.reviewCount} />
           </div>
 
-          <div className="mt-5 flex items-end gap-3">
-            <span className="text-3xl font-extrabold tracking-tight text-white">{formatCurrency(price)}</span>
+          <div className="mt-4 sm:mt-5 flex flex-wrap items-baseline gap-2.5 sm:gap-3">
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">{formatCurrency(price)}</span>
             {off > 0 && (
               <>
-                <span className="text-lg text-ink-500 line-through mb-0.5">{formatCurrency(product.price)}</span>
-                <span className="bg-gold-500 text-black text-xs font-bold px-2 py-1 rounded-md mb-1">Save {off}%</span>
+                <span className="text-base sm:text-lg text-ink-500 line-through">{formatCurrency(product.price)}</span>
+                <span className="bg-gold-500 text-black text-xs font-bold px-2 py-0.5 sm:py-1 rounded-md">Save {off}%</span>
               </>
             )}
           </div>
@@ -188,11 +190,11 @@ export default function ProductDetails() {
             {outOfStock ? 'Out of Stock' : product.stock <= (product.lowStockThreshold ?? 5) ? `Hurry — only ${product.stock} left in stock` : `In stock — ${product.stock} available`}
           </p>
 
-          <p className="mt-4 text-sm text-ink-400 leading-relaxed">{product.shortDescription}</p>
+          <p className="mt-3 sm:mt-4 text-sm text-ink-400 leading-relaxed break-words">{product.shortDescription}</p>
 
           {/* Variations */}
           {(product.variations || []).map((v) => (
-            <div key={v.name} className="mt-6">
+            <div key={v.name} className="mt-5 sm:mt-6 w-full min-w-0">
               <p className="text-xs font-bold uppercase tracking-widest text-ink-400 mb-2.5">
                 {v.name}: <span className="text-white normal-case tracking-normal">{variant[v.name] || 'Select…'}</span>
               </p>
@@ -203,7 +205,7 @@ export default function ProductDetails() {
                     <button
                       key={opt}
                       onClick={() => setVariant((prev) => ({ ...prev, [v.name]: opt }))}
-                      className={`px-4 py-2.5 rounded-lg border text-sm font-medium transition-all duration-150 active:scale-95 ${
+                      className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-xs sm:text-sm font-medium transition-all duration-150 active:scale-95 break-words ${
                         selected
                           ? 'bg-gold-500 text-black border-gold-500'
                           : 'bg-[#111] border-ink-700 text-white hover:border-gold-500'
@@ -219,23 +221,27 @@ export default function ProductDetails() {
           ))}
 
           {/* Qty + CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            {!outOfStock && <QuantitySelector value={qty} onChange={(q) => setQty(Math.min(q, product.stock))} max={Math.max(1, Math.min(product.stock, 10))} />}
-            <Button size="lg" icon={ShoppingBag} disabled={outOfStock} loading={false} onClick={() => handleAdd(false)} className="flex-1 min-w-[180px]">
+          <div className="mt-6 sm:mt-8 flex flex-col xs:flex-row items-stretch xs:items-center gap-3 w-full">
+            {!outOfStock && (
+              <div className="self-start xs:self-auto">
+                <QuantitySelector value={qty} onChange={(q) => setQty(Math.min(q, product.stock))} max={Math.max(1, Math.min(product.stock, 10))} />
+              </div>
+            )}
+            <Button size="lg" icon={ShoppingBag} disabled={outOfStock} loading={false} onClick={() => handleAdd(false)} className="flex-1 w-full min-w-0">
               {outOfStock ? 'Out of Stock' : 'Add to Cart'}
             </Button>
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            <Button size="lg" variant="secondary" icon={Zap} disabled={outOfStock} onClick={handleBuyNow}>
+          <div className="mt-3 grid grid-cols-2 gap-2.5 sm:gap-3 w-full">
+            <Button size="lg" variant="secondary" icon={Zap} disabled={outOfStock} onClick={handleBuyNow} className="w-full min-w-0 px-2 sm:px-4 text-xs sm:text-sm">
               Buy Now
             </Button>
-            <Button size="lg" variant="secondary" icon={<Heart size={17} fill={wishlisted ? 'currentColor' : 'none'} />} onClick={handleWishlist}>
+            <Button size="lg" variant="secondary" icon={<Heart size={17} fill={wishlisted ? 'currentColor' : 'none'} />} onClick={handleWishlist} className="w-full min-w-0 px-2 sm:px-4 text-xs sm:text-sm">
               {wishlisted ? 'Wishlisted' : 'Wishlist'}
             </Button>
           </div>
 
           {/* Perks */}
-          <div className="mt-8 flex items-center gap-6 border-t border-ink-800 pt-6">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-6 border-t border-ink-800 pt-6">
             {[
               [Truck, 'Free Shipping', 'On all available products'],
             ].map(([Icon, t, s]) => (
@@ -251,10 +257,10 @@ export default function ProductDetails() {
 
           {/* Features */}
           {product.features?.length > 0 && (
-            <ul className="mt-7 space-y-2 border border-ink-800 rounded-xl p-5 bg-ink-900/30">
+            <ul className="mt-6 sm:mt-7 space-y-2 border border-ink-800 rounded-xl p-4 sm:p-5 bg-ink-900/30 w-full min-w-0">
               {product.features.map((f, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-ink-300">
-                  <Check size={15} className="mt-0.5 shrink-0 text-gold-500" /> {f}
+                <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-ink-300 break-words">
+                  <Check size={15} className="mt-0.5 shrink-0 text-gold-500" /> <span className="break-words">{f}</span>
                 </li>
               ))}
             </ul>
@@ -263,13 +269,13 @@ export default function ProductDetails() {
       </div>
 
       {/* Tabs */}
-      <div className="border-t border-ink-800 pt-8 pb-14">
-        <div className="flex gap-1 overflow-x-auto">
+      <div className="border-t border-ink-800 pt-6 sm:pt-8 pb-12 sm:pb-14 w-full min-w-0">
+        <div className="flex gap-1 overflow-x-auto max-w-full pb-1 scrollbar-none border-b border-ink-800">
           {TABS.map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`px-5 py-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${
+              className={`px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap border-b-2 -mb-[1px] transition-colors ${
                 tab === t ? 'border-gold-500 text-white' : 'border-transparent text-ink-500 hover:text-white'
               }`}
             >
@@ -278,29 +284,29 @@ export default function ProductDetails() {
           ))}
         </div>
 
-        <div className="mt-7 max-w-3xl">
-          {tab === 'Description' && <p className="text-sm leading-relaxed text-ink-300 whitespace-pre-line">{product.description}</p>}
+        <div className="mt-6 sm:mt-7 max-w-3xl w-full min-w-0">
+          {tab === 'Description' && <p className="text-sm leading-relaxed text-ink-300 whitespace-pre-line break-words">{product.description}</p>}
 
           {tab === 'Specifications' && (
-            <dl className="divide-y divide-ink-800 border border-ink-800 rounded-xl overflow-hidden">
+            <dl className="divide-y divide-ink-800 border border-ink-800 rounded-xl overflow-hidden w-full">
               {(product.specifications || []).map((s, i) => (
-                <div key={i} className={`grid grid-cols-[140px_1fr] sm:grid-cols-[200px_1fr] ${i % 2 ? 'bg-ink-900/30' : ''}`}>
-                  <dt className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-ink-500">{s.key}</dt>
-                  <dd className="px-4 py-3 text-sm font-medium text-white">{s.value}</dd>
+                <div key={i} className={`grid grid-cols-[100px_1fr] sm:grid-cols-[180px_1fr] gap-2 ${i % 2 ? 'bg-ink-900/30' : ''}`}>
+                  <dt className="px-3 sm:px-4 py-3 text-xs font-bold uppercase tracking-wide text-ink-500 break-words">{s.key}</dt>
+                  <dd className="px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium text-white break-words min-w-0">{s.value}</dd>
                 </div>
               ))}
             </dl>
           )}
 
           {(tab === 'Warranty & Shipping') && (
-            <div className="space-y-5 text-sm leading-relaxed text-ink-300">
+            <div className="space-y-5 text-sm leading-relaxed text-ink-300 break-words">
               <div>
                 <h4 className="font-bold mb-1 text-white">Warranty</h4>
-                <p>{product.warranty || 'Standard manufacturer warranty applies.'}</p>
+                <p className="break-words">{product.warranty || 'Standard manufacturer warranty applies.'}</p>
               </div>
               <div>
                 <h4 className="font-bold mb-1 text-white">Shipping</h4>
-                <p>{product.shippingInfo || 'Ships within 2 business days.'}</p>
+                <p className="break-words">{product.shippingInfo || 'Ships within 2 business days.'}</p>
               </div>
             </div>
           )}
@@ -312,9 +318,9 @@ export default function ProductDetails() {
 
       {/* Related */}
       {data.related?.length > 0 && (
-        <section className="pb-16">
-          <h2 className="text-2xl font-bold tracking-tight mb-7 text-white">You May Also Like</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <section className="pb-16 w-full min-w-0">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-5 sm:mb-7 text-white">You May Also Like</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
             {data.related.map((p) => (
               <ProductCard key={p._id} product={p} />
             ))}

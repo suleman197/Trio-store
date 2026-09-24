@@ -21,14 +21,14 @@ export default function ReviewSection({ productId }) {
   const totalReviews = data?.meta?.total || 0;
 
   return (
-    <section className="pb-16">
-      <h2 className="text-2xl font-bold tracking-tight mb-7">Customer Reviews</h2>
+    <section className="pb-14 sm:pb-16 w-full min-w-0">
+      <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-5 sm:mb-7 text-white">Customer Reviews</h2>
 
-      <div className="grid lg:grid-cols-[300px_1fr] gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-10 w-full min-w-0">
         {/* Summary */}
-        <div>
-          <div className="border border-ink-800 bg-[#111] rounded-xl p-6 text-center lg:sticky lg:top-28">
-            <p className="text-5xl font-extrabold tracking-tight">{(data?.reviews?.length ? avgFrom(reviews.data.reviews) : 0).toFixed(1)}</p>
+        <div className="w-full min-w-0">
+          <div className="border border-ink-800 bg-[#111] rounded-xl p-5 sm:p-6 text-center lg:sticky lg:top-28">
+            <p className="text-4xl sm:text-5xl font-extrabold tracking-tight">{(data?.reviews?.length ? avgFrom(reviews.data.reviews) : 0).toFixed(1)}</p>
             <div className="flex justify-center mt-2">
               <RatingStars rating={avgFrom(reviews.data?.reviews || [])} size={17} />
             </div>
@@ -58,9 +58,9 @@ export default function ReviewSection({ productId }) {
         </div>
 
         {/* List */}
-        <div>
+        <div className="w-full min-w-0">
           {reviews.loading ? (
-            <div className="space-y-5">
+            <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="skeleton h-28 rounded-xl" />
               ))}
@@ -69,25 +69,25 @@ export default function ReviewSection({ productId }) {
             <EmptyState icon={MessageSquarePlus} title="No reviews yet" description="Be the first verified buyer to share your experience." />
           ) : (
             <>
-              <div className="divide-y divide-ink-800 border-t border-b border-ink-800">
+              <div className="divide-y divide-ink-800 border-t border-b border-ink-800 w-full min-w-0">
                 {(data?.reviews || []).map((r) => (
-                  <article key={r._id} className="py-6">
+                  <article key={r._id} className="py-5 sm:py-6 w-full min-w-0">
                     <div className="flex items-center justify-between gap-3 flex-wrap">
-                      <div className="flex items-center gap-3">
-                        <span className="w-9 h-9 rounded-full bg-gold-500 text-black text-xs font-bold flex items-center justify-center uppercase">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gold-500 text-black text-xs font-bold flex items-center justify-center uppercase shrink-0">
                           {r.user?.firstName?.[0]}{r.user?.lastName?.[0]}
                         </span>
-                        <div>
-                          <p className="text-sm font-semibold">
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold truncate text-white">
                             {r.user?.firstName} {r.user?.lastName?.[0] ? `${r.user.lastName[0]}.` : ''}
                           </p>
                           <RatingStars rating={r.rating} size={12} showValue />
                         </div>
                       </div>
-                      <time className="text-xs text-ink-400">{formatDate(r.createdAt)}</time>
+                      <time className="text-xs text-ink-400 shrink-0">{formatDate(r.createdAt)}</time>
                     </div>
-                    {r.title && <h4 className="mt-3 font-semibold text-sm">{r.title}</h4>}
-                    <p className="mt-1.5 text-sm text-ink-400 leading-relaxed">{r.comment}</p>
+                    {r.title && <h4 className="mt-3 font-semibold text-sm break-words text-white">{r.title}</h4>}
+                    <p className="mt-1.5 text-xs sm:text-sm text-ink-400 leading-relaxed break-words">{r.comment}</p>
                     <span className="inline-flex items-center gap-1 mt-2.5 text-[11px] font-semibold text-emerald-500">
                       <svg viewBox="0 0 10 8" className="w-2.5 h-2 fill-none stroke-current stroke-2"><path d="M1 4l3 3 5-6" /></svg>
                       Verified Purchase

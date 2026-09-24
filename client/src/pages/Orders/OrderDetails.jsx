@@ -73,11 +73,11 @@ export default function OrderDetails() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 pb-16">
+    <div className="w-full max-w-4xl mx-auto px-3.5 sm:px-6 pb-16 min-w-0 overflow-x-hidden">
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'My Orders', to: '/orders' }, { label: order.orderNumber }]} />
 
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <Link to="/orders" className="p-2 -ml-2 rounded-lg hover:bg-ink-800 transition-colors text-white" aria-label="Back">
             <ArrowLeft size={20} />
           </Link>
@@ -99,25 +99,25 @@ export default function OrderDetails() {
 
       {/* Timeline */}
       {order.status !== 'cancelled' && (
-        <div className="border border-ink-800 rounded-2xl p-6 mb-6 bg-[#111]">
-          <ol className="flex items-start">
+        <div className="border border-ink-800 rounded-2xl p-4 sm:p-6 mb-6 bg-[#111] overflow-x-auto scrollbar-none w-full min-w-0">
+          <ol className="flex items-start min-w-[320px] sm:min-w-0 w-full">
             {TIMELINE.map((s, i) => {
               const done = i <= currentStep;
               return (
                 <li key={s} className={`flex-1 last:flex-none ${i === TIMELINE.length - 1 ? '' : ''}`}>
                   <div className="flex items-center">
                     <span
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold border-2 shrink-0 transition-colors ${
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[10px] sm:text-[11px] font-bold border-2 shrink-0 transition-colors ${
                         done ? 'bg-gold-500 text-black border-gold-500' : 'bg-[#111] text-ink-500 border-ink-700'
                       }`}
                     >
                       {done ? <svg viewBox="0 0 10 8" className="w-3 h-3 fill-none stroke-current stroke-[2.5]"><path d="M1 4l3 3 5-6" /></svg> : i + 1}
                     </span>
                     {i < TIMELINE.length - 1 && (
-                      <span className={`flex-1 h-0.5 mx-2 rounded ${i < currentStep ? 'bg-gold-500' : 'bg-ink-700'}`} style={{ minWidth: 12 }} />
+                      <span className={`flex-1 h-0.5 mx-1.5 sm:mx-2 rounded ${i < currentStep ? 'bg-gold-500' : 'bg-ink-700'}`} style={{ minWidth: 10 }} />
                     )}
                   </div>
-                  <p className={`mt-2 text-[11px] font-semibold capitalize ${done ? 'text-white' : 'text-ink-500'}`}>{ORDER_STATUS_META[s].label}</p>
+                  <p className={`mt-2 text-[10px] sm:text-[11px] font-semibold capitalize ${done ? 'text-white' : 'text-ink-500'}`}>{ORDER_STATUS_META[s].label}</p>
                 </li>
               );
             })}
@@ -125,11 +125,11 @@ export default function OrderDetails() {
         </div>
       )}
 
-      <div className="grid lg:grid-cols-[1fr_300px] gap-6 items-start">
+      <div className="grid lg:grid-cols-[1fr_300px] gap-6 items-start w-full min-w-0">
         {/* Items */}
-        <div className="border border-ink-800 rounded-2xl divide-y divide-ink-800 overflow-hidden bg-[#111]">
+        <div className="border border-ink-800 rounded-2xl divide-y divide-ink-800 overflow-hidden bg-[#111] w-full min-w-0">
           {order.items.map((item, i) => (
-            <div key={i} className="p-5 flex gap-4">
+            <div key={i} className="p-3.5 sm:p-5 flex gap-3 sm:gap-4 min-w-0">
               <img
                 src={item.image}
                 alt=""

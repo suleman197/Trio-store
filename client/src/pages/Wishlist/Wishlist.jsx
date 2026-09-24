@@ -41,9 +41,9 @@ export default function Wishlist() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pb-16">
+    <div className="w-full max-w-7xl mx-auto px-3.5 sm:px-6 pb-16 min-w-0 overflow-x-hidden">
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Wishlist' }]} />
-      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-white">My Wishlist</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 sm:mb-8 text-white">My Wishlist</h1>
 
       {products.length === 0 ? (
         <EmptyState
@@ -57,33 +57,33 @@ export default function Wishlist() {
           }
         />
       ) : (
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 w-full min-w-0">
           {products.map((p) => {
             const price = effectivePrice(p);
             const off = discountPercent(p.price, p.discountPrice);
             const outOfStock = p.stock <= 0;
             return (
-              <div key={p._id} className="flex gap-4 border border-ink-800 rounded-xl p-4 bg-[#111] hover:border-gold-500/30 transition-all">
-                <Link to={`/product/${p.slug}`} className="shrink-0">
+              <div key={p._id} className="flex flex-col xs:flex-row gap-3 sm:gap-4 border border-ink-800 rounded-xl p-3.5 sm:p-4 bg-[#111] hover:border-gold-500/30 transition-all w-full min-w-0">
+                <Link to={`/product/${p.slug}`} className="shrink-0 self-center xs:self-start">
                   <img
                     src={p.images?.[0]}
                     alt={p.name}
-                    className="w-24 h-24 rounded-lg object-cover bg-ink-900 border border-ink-800"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover bg-ink-900 border border-ink-800"
                     onError={(e) => (e.currentTarget.style.opacity = '0.25')}
                   />
                 </Link>
                 <div className="flex-1 min-w-0 flex flex-col">
                   <div className="flex justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-500">{p.brand}</p>
-                      <Link to={`/product/${p.slug}`} className="font-semibold text-sm line-clamp-2 hover:text-gold-400 mt-0.5 block text-white">
+                      <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-gold-500 truncate">{p.brand}</p>
+                      <Link to={`/product/${p.slug}`} className="font-semibold text-xs sm:text-sm line-clamp-2 hover:text-gold-400 mt-0.5 block text-white break-words">
                         {p.name}
                       </Link>
                     </div>
                     <button
                       onClick={() => toggle(p)}
                       aria-label="Remove from wishlist"
-                      className="p-1 h-fit rounded text-ink-400 hover:text-red-500 transition-colors"
+                      className="p-1 h-fit rounded text-ink-400 hover:text-red-500 transition-colors shrink-0"
                     >
                       <X size={15} />
                     </button>
@@ -91,7 +91,7 @@ export default function Wishlist() {
                   <RatingStars rating={p.rating} count={p.reviewCount} size={11} />
                   <div className="mt-auto pt-2 flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <span className="font-bold text-white">{formatCurrency(price)}</span>
+                      <span className="font-bold text-sm sm:text-base text-white">{formatCurrency(price)}</span>
                       {off > 0 && <span className="ml-1.5 text-xs text-ink-500 line-through">{formatCurrency(p.price)}</span>}
                       <p className={`text-[10px] font-bold uppercase ${outOfStock ? 'text-red-500' : p.stock <= (p.lowStockThreshold ?? 5) ? 'text-gold-500' : 'text-emerald-500'}`}>
                         {outOfStock ? 'Out of Stock' : p.stock <= (p.lowStockThreshold ?? 5) ? `Only ${p.stock} left` : 'In Stock'}

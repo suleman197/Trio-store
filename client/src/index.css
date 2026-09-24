@@ -32,11 +32,41 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+#root {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  min-height: 100vh;
 }
 
 body {
   @apply bg-[#0a0a0a] text-white font-sans antialiased;
 }
+
+/* Ensure text and words wrap properly and never spill out of containers */
+p, h1, h2, h3, h4, h5, h6, span, a, dt, dd, li {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* Utility to hide scrollbars while preserving horizontal touch scrolling */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 
 /* Thin elegant scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }

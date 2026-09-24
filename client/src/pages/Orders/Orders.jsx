@@ -20,12 +20,12 @@ export default function Orders() {
   const orders = data?.orders || [];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 pb-16">
+    <div className="w-full max-w-5xl mx-auto px-3.5 sm:px-6 pb-16 min-w-0 overflow-x-hidden">
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'My Orders' }]} />
       <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-white">My Orders</h1>
 
       {/* Status filter tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-5">
+      <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-none w-full">
         {STATUS_TABS.map((s) => (
           <button
             key={s || 'all'}
@@ -61,12 +61,12 @@ export default function Orders() {
         />
       ) : (
         <>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full min-w-0">
             {orders.map((order) => (
               <Link
                 key={order._id}
                 to={`/orders/${order._id}`}
-                className="block border border-ink-800 rounded-2xl p-5 bg-[#111] hover:border-gold-500/30 hover:shadow-[0_0_20px_rgba(212,175,55,0.05)] transition-all group"
+                className="block border border-ink-800 rounded-2xl p-4 sm:p-5 bg-[#111] hover:border-gold-500/30 hover:shadow-[0_0_20px_rgba(212,175,55,0.05)] transition-all group w-full min-w-0"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-ink-800">
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-1.5 text-xs">

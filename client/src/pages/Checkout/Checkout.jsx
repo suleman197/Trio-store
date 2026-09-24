@@ -243,19 +243,19 @@ export default function Checkout() {
     );
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen pb-20">
-      <div className="max-w-5xl mx-auto px-4 pt-10">
+    <div className="bg-[#0a0a0a] min-h-screen pb-20 w-full min-w-0 overflow-x-hidden">
+      <div className="max-w-5xl mx-auto px-3.5 sm:px-4 pt-6 sm:pt-10 w-full min-w-0">
         {/* Stepper */}
-        <ol className="flex items-center gap-0 mb-10 select-none">
+        <ol className="flex items-center gap-0 mb-6 sm:mb-10 select-none overflow-x-auto pb-2 scrollbar-none w-full">
           {STEPS.slice(0, paymentMethod === 'bank' ? 5 : 4).map((label, i) => (
             <li key={label} className="flex items-center flex-1 last:flex-none">
               <button
                 onClick={() => i < step && setStep(i)}
                 disabled={i > step}
-                className={`flex items-center gap-2.5 ${i <= step ? 'cursor-default' : 'opacity-40'}`}
+                className={`flex items-center gap-2 sm:gap-2.5 ${i <= step ? 'cursor-default' : 'opacity-40'}`}
               >
                 <span
-                  className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all shrink-0 ${
                     i < step
                       ? 'bg-gold-500 text-black border-gold-500'
                       : i === step
@@ -263,18 +263,18 @@ export default function Checkout() {
                         : 'border-ink-700 text-ink-500 bg-[#111]'
                   }`}
                 >
-                  {i < step ? <Check size={15} /> : i + 1}
+                  {i < step ? <Check size={14} /> : i + 1}
                 </span>
-                <span className={`hidden sm:block text-xs font-semibold ${i === step ? 'text-white' : 'text-ink-500'}`}>{label}</span>
+                <span className={`hidden md:block text-xs font-semibold ${i === step ? 'text-white' : 'text-ink-500'}`}>{label}</span>
               </button>
-              {i < (paymentMethod === 'bank' ? 4 : 3) && <div className={`flex-1 h-0.5 mx-3 rounded ${i < step ? 'bg-gold-500' : 'bg-ink-800'}`} />}
+              {i < (paymentMethod === 'bank' ? 4 : 3) && <div className={`flex-1 h-0.5 mx-1.5 sm:mx-3 rounded ${i < step ? 'bg-gold-500' : 'bg-ink-800'}`} />}
             </li>
           ))}
         </ol>
 
-        <div className="grid lg:grid-cols-[1fr_360px] gap-8 items-start">
+        <div className="grid lg:grid-cols-[1fr_360px] gap-8 items-start w-full min-w-0">
           {/* Step panels */}
-          <div className="bg-[#111] border border-ink-800 rounded-2xl p-7">
+          <div className="bg-[#111] border border-ink-800 rounded-2xl p-4 sm:p-7 w-full min-w-0">
             {step === 0 && (
               <>
                 <h2 className="text-lg font-bold tracking-tight mb-6 text-white">Customer Information</h2>

@@ -92,17 +92,17 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur border-b border-ink-800">
+    <header className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur border-b border-ink-800 w-full">
       {/* Announcement bar */}
       {settings.announcementEnabled && (
-        <div className="bg-gold-500 text-black">
-          <p className="max-w-7xl mx-auto px-4 py-2 text-[11px] sm:text-xs font-medium tracking-wide text-center flex items-center justify-center gap-2">
-            <Zap size={12} /> {settings.announcementText}
+        <div className="bg-gold-500 text-black overflow-hidden w-full">
+          <p className="max-w-7xl mx-auto px-4 py-2 text-[11px] sm:text-xs font-semibold tracking-wide text-center flex items-center justify-center gap-2">
+            <Zap size={12} className="shrink-0" /> <span className="truncate sm:overflow-visible sm:whitespace-normal">{settings.announcementText}</span>
           </p>
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 w-full min-w-0">
         <div className="flex items-center gap-4 h-16">
           {/* Mobile hamburger */}
           <button className="lg:hidden p-2 -ml-2 text-white" onClick={() => setMobileOpen(true)} aria-label="Open menu">
@@ -307,7 +307,7 @@ function MobileDrawer({ onClose, user, handleLogout, categories = [], settings =
   return (
     <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <aside className="absolute left-0 top-0 bottom-0 w-[300px] h-dvh bg-[#0a0a0a] flex flex-col shadow-2xl animate-[drawerIn_.25s_ease] overflow-y-auto">
+      <aside className="absolute left-0 top-0 bottom-0 w-[280px] sm:w-[320px] max-w-[85vw] h-dvh bg-[#0a0a0a] flex flex-col shadow-2xl animate-[drawerIn_.25s_ease] overflow-y-auto">
         <style>{`@keyframes drawerIn{from{transform:translateX(-100%)}to{transform:none}}`}</style>
         <div className="flex items-center justify-between px-5 h-16 border-b border-ink-800 shrink-0">
           <Link to="/" className="flex items-center gap-2" onClick={onClose}>
