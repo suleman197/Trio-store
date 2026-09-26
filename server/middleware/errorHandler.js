@@ -27,6 +27,13 @@ const errorHandler = (err, req, res, next) => {
     const field = Object.keys(err.keyValue || {})[0] || 'field';
     message = `Duplicate value for ${field}: "${err.keyValue ? err.keyValue[field] : ''}"`;
   }
+  // Multer upload errors
+  else if (err.name === 'MulterError') {
+    status = 400;
+    message = err.code === 'LIMIT_FILE_SIZE'
+      ? 'File size too large. Maximum allowed size is 10MB.'
+      : `File upload error: ${err.message}`;
+  }
 
   if (status >= 500) console.error('[error]', err);
 

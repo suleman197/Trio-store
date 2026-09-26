@@ -24,7 +24,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'voltiq/uploads',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'jfif', 'avif', 'bmp', 'svg'],
     transformation: [{ width: 1200, height: 1200, crop: 'limit', quality: 'auto' }],
   },
 });
@@ -45,11 +45,16 @@ const diskStorage = multer.diskStorage({
 
 const upload = multer({
   storage: isCloudinaryConfigured ? storage : diskStorage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
   fileFilter: (_req, file, cb) => {
-    const allowed = /\.(jpg|jpeg|png|webp|gif)$/i;
-    if (allowed.test(path.extname(file.originalname))) cb(null, true);
-    else cb(new Error('Only image files are allowed'), false);
+    const ext = path.extname(file.originalname).toLowerCase();
+    const allowed = /\.(jpe?g|png|webp|gif|jfif|avif|bmp|svg)$/i;
+    const isImageMime = file.mimetype && (file.mimetype.startsWith('image/') || file.mimetype === 'application/octet-stream');
+    if (allowed.test(ext) || isImageMime) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files (JPG, PNG, WebP, GIF, etc.) are allowed'), false);
+    }
   },
 });
 

@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Plus, X, Save, Upload } from 'lucide-react';
 import { adminApi } from '../../../services';
@@ -205,23 +205,39 @@ function normalize(p) {
 function ImageUrlsEditor({ images, onChange }) {
   const [draft, setDraft] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState('');
 
   const handleFileUpload = async (e) => {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
     setUploading(true);
+    let currentImages = [...images];
+    let successCount = 0;
+    const errors = [];
+
     try {
-      const urls = [];
-      for (const file of files) {
-        const { url } = await adminApi.upload(file);
-        urls.push(url);
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        setUploadProgress(`Uploading ${i + 1}/${files.length}...`);
+        try {
+          const { url } = await adminApi.upload(file);
+          currentImages = [...currentImages, url];
+          onChange(currentImages);
+          successCount++;
+        } catch (err) {
+          errors.push(`${file.name}: ${err.message}`);
+        }
       }
-      onChange([...images, ...urls]);
-      toast.success(`${urls.length} image${urls.length > 1 ? 's' : ''} uploaded`);
-    } catch (err) {
-      toast.error(err.message);
+
+      if (successCount > 0) {
+        toast.success(`${successCount} image${successCount > 1 ? 's' : ''} uploaded`);
+      }
+      if (errors.length > 0) {
+        toast.error(`Upload issue: ${errors[0]}`);
+      }
     } finally {
       setUploading(false);
+      setUploadProgress('');
       e.target.value = '';
     }
   };
@@ -276,7 +292,7 @@ function ImageUrlsEditor({ images, onChange }) {
       </div>
       <label className="flex items-center justify-center gap-2 border border-dashed border-ink-700 rounded-lg px-4 py-3 text-sm text-ink-400 cursor-pointer hover:border-gold-500 hover:text-gold-400 transition-colors">
         <Upload size={15} />
-        {uploading ? 'Uploading...' : 'Upload from PC'}
+        {uploading ? uploadProgress || 'Uploading...' : 'Upload from PC'}
         <input type="file" accept="image/*" multiple className="hidden" onChange={handleFileUpload} disabled={uploading} />
       </label>
     </div>

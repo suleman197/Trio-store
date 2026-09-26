@@ -1,4 +1,5 @@
 import api from './api';
+import { compressImage } from '../utils/imageCompressor';
 
 export const productApi = {
   list: (params) => api.get('/products', { params }).then((r) => r.data.data),
@@ -21,9 +22,10 @@ export const orderApi = {
   get: (id) => api.get(`/orders/${id}`).then((r) => r.data.data.order),
   place: (payload) => api.post('/orders', payload).then((r) => r.data.data.order),
   cancel: (id) => api.put(`/orders/${id}/cancel`).then((r) => r.data),
-  uploadScreenshot: (id, file) => {
+  uploadScreenshot: async (id, file) => {
+    const compressed = await compressImage(file);
     const fd = new FormData();
-    fd.append('screenshot', file);
+    fd.append('screenshot', compressed);
     return api.put(`/orders/${id}/bank-screenshot`, fd, { timeout: 60000 }).then((r) => r.data.data.order);
   },
 };
@@ -96,9 +98,10 @@ export const adminApi = {
     update: (payload) => api.put('/settings', payload).then((r) => r.data),
   },
 
-  upload: (file) => {
+  upload: async (file) => {
+    const compressed = await compressImage(file);
     const fd = new FormData();
-    fd.append('image', file);
+    fd.append('image', compressed);
     return api.post('/admin/upload', fd, { timeout: 60000 }).then((r) => r.data.data);
   },
 };
